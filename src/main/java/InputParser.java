@@ -11,11 +11,11 @@ public class InputParser {
         return new Grid(new Point(x, y));
     }
 
-    public Rovers parseRoversFrom(String input) {
+    public List<Rover> parseRoversFrom(String input) {
         return null;
     }
 
-    public List<CommandSet> parseCommandsFrom(String input) {
+    public List<List<Command>> parseCommandsFrom(String input) {
         return null;
     }
 }

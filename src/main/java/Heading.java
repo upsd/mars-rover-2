@@ -1,3 +1,3 @@
 public enum Heading {
-    EAST, NORTH
+    EAST, WEST, NORTH
 }

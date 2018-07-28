@@ -2,6 +2,7 @@ import org.junit.Test;
 
 import java.util.Arrays;
 
+import static java.util.Arrays.*;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
@@ -19,12 +20,12 @@ public class NasaMarsRoverMissionControlShould {
         );
 
         when(parser.parseGridFrom(input)).thenReturn(new Grid(new Point(5, 5)));
-        when(parser.parseRoversFrom(input)).thenReturn(new Rovers(
+        when(parser.parseRoversFrom(input)).thenReturn(asList(
                 new Rover(new Point(1, 2), Heading.NORTH),
                 new Rover(new Point(3, 3), Heading.EAST))
         );
-        when(parser.parseCommandsFrom(input)).thenReturn(Arrays.asList(
-                new CommandSet(
+        when(parser.parseCommandsFrom(input)).thenReturn(asList(
+                asList(
                         new LeftCommand(),
                         new MoveCommand(),
                         new LeftCommand(),
@@ -35,7 +36,7 @@ public class NasaMarsRoverMissionControlShould {
                         new MoveCommand(),
                         new MoveCommand()
                 ),
-                new CommandSet(
+                asList(
                         new MoveCommand(),
                         new MoveCommand(),
                         new RightCommand(),
