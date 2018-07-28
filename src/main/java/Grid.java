@@ -1,14 +1,16 @@
 public class Grid {
 
-    public Grid(Point point) {
+    private Point point;
 
+    public Grid(Point point) {
+        this.point = point;
     }
 
     public int upperRightX() {
-        return 0;
+        return this.point.x();
     }
 
     public int upperRightY() {
-        return 0;
+        return this.point.y();
     }
 }
