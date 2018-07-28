@@ -2,21 +2,23 @@ public class LeftCommand implements Command {
 
     @Override
     public Rover execute(Rover rover) {
+        Heading newHeading = null;
+
         if (rover.heading() == Heading.NORTH) {
-            return new Rover(new Point(rover.x(), rover.y()), Heading.WEST);
+            newHeading = Heading.WEST;
         }
 
         if (rover.heading() == Heading.WEST) {
-            return new Rover(new Point(rover.x(), rover.y()), Heading.SOUTH);
+            newHeading = Heading.SOUTH;
         }
 
         if (rover.heading() == Heading.SOUTH) {
-            return new Rover(new Point(rover.x(), rover.y()), Heading.EAST);
+            newHeading = Heading.EAST;
         }
 
         if (rover.heading() == Heading.EAST) {
-            return new Rover(new Point(rover.x(), rover.y()), Heading.NORTH);
+            newHeading = Heading.NORTH;
         }
-        return rover;
+        return new Rover(new Point(rover.x(), rover.y()), newHeading);
     }
 }
