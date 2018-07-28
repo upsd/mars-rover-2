@@ -1,3 +1,5 @@
+import java.util.List;
+
 public class InputParser {
 
     public Grid parseGridFrom(String input) {
@@ -10,6 +12,10 @@ public class InputParser {
     }
 
     public Rovers parseRoversFrom(String input) {
+        return null;
+    }
+
+    public List<CommandSet> parseCommandsFrom(String input) {
         return null;
     }
 }

@@ -1,5 +1,6 @@
-import org.junit.Assert;
 import org.junit.Test;
+
+import java.util.Arrays;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.*;
@@ -19,6 +20,31 @@ public class NasaMarsRoverMissionControlShould {
 
         when(parser.parseGridFrom(input)).thenReturn(new Grid(new Point(5, 5)));
         when(parser.parseRoversFrom(input)).thenReturn(new Rovers(new Rover(new Point(1, 2), Heading.NORTH)));
+        when(parser.parseCommandsFrom(input)).thenReturn(Arrays.asList(
+                new CommandSet(
+                        new LeftCommand(),
+                        new MoveCommand(),
+                        new LeftCommand(),
+                        new MoveCommand(),
+                        new LeftCommand(),
+                        new MoveCommand(),
+                        new LeftCommand(),
+                        new MoveCommand(),
+                        new MoveCommand()
+                ),
+                new CommandSet(
+                        new MoveCommand(),
+                        new MoveCommand(),
+                        new RightCommand(),
+                        new MoveCommand(),
+                        new MoveCommand(),
+                        new RightCommand(),
+                        new MoveCommand(),
+                        new RightCommand(),
+                        new RightCommand(),
+                        new MoveCommand()
+                )
+        ));
 
         String output = missionControl.getFinalCoordinatesAndHeadings();
 
