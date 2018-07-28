@@ -2,6 +2,23 @@ public class RightCommand implements Command {
 
     @Override
     public Rover execute(Rover rover) {
-        return null;
+        Heading newHeading = null;
+
+        if (rover.heading() == Heading.NORTH) {
+            newHeading = Heading.EAST;
+        }
+
+        if (rover.heading() == Heading.EAST) {
+            newHeading = Heading.SOUTH;
+        }
+
+        if (rover.heading() == Heading.SOUTH) {
+            newHeading = Heading.WEST;
+        }
+
+        if (rover.heading() == Heading.WEST) {
+            newHeading = Heading.NORTH;
+        }
+        return new Rover(new Point(rover.x(), rover.y()), newHeading);
     }
 }
