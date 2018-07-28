@@ -18,6 +18,7 @@ public class NasaMarsRoverMissionControlShould {
         );
 
         when(parser.parseGridFrom(input)).thenReturn(new Grid(new Point(5, 5)));
+        when(parser.parseRoversFrom(input)).thenReturn(new Rovers(new Rover(new Point(1, 2), Heading.NORTH)));
 
         String output = missionControl.getFinalCoordinatesAndHeadings();
 

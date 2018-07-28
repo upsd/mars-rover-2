@@ -8,4 +8,8 @@ public class InputParser {
 
         return new Grid(new Point(x, y));
     }
+
+    public Rovers parseRoversFrom(String input) {
+        return null;
+    }
 }
