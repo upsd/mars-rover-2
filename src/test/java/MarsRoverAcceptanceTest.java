@@ -7,7 +7,10 @@ public class MarsRoverAcceptanceTest {
 
     @Test
     public void return_final_coordinates_and_headings_for_rovers() {
-        NasaMarsRoverMissionControl control = new NasaMarsRoverMissionControl("5 5\n1 2 N\nLMLMLMLMM\n3 3 E\nMMRMMRMRRM");
+        NasaMarsRoverMissionControl control = new NasaMarsRoverMissionControl(
+                "5 5\n1 2 N\nLMLMLMLMM\n3 3 E\nMMRMMRMRRM",
+                new InputParser()
+        );
 
         String output = control.getFinalCoordinatesAndHeadings();
 
