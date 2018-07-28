@@ -1,6 +1,9 @@
 public class NasaMarsRoverMissionControl {
-    public NasaMarsRoverMissionControl(String input) {
 
+    private final Grid grid;
+
+    public NasaMarsRoverMissionControl(String input) {
+        grid = new InputParser().parseGridFrom(input);
     }
 
     public String getFinalCoordinatesAndHeadings() {
