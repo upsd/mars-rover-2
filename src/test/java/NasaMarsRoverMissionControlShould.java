@@ -19,7 +19,10 @@ public class NasaMarsRoverMissionControlShould {
         );
 
         when(parser.parseGridFrom(input)).thenReturn(new Grid(new Point(5, 5)));
-        when(parser.parseRoversFrom(input)).thenReturn(new Rovers(new Rover(new Point(1, 2), Heading.NORTH)));
+        when(parser.parseRoversFrom(input)).thenReturn(new Rovers(
+                new Rover(new Point(1, 2), Heading.NORTH),
+                new Rover(new Point(3, 3), Heading.EAST))
+        );
         when(parser.parseCommandsFrom(input)).thenReturn(Arrays.asList(
                 new CommandSet(
                         new LeftCommand(),
