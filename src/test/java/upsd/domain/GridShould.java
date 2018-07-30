@@ -1,6 +1,7 @@
 package upsd.domain;
 
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
@@ -9,45 +10,27 @@ public class GridShould {
 
     private Grid grid = new Grid(new Point(2, 2));
 
-    @Test
-    void validate_X_value_that_is_too_small() {
-        Point newCoordinate = grid.sanitisePoint(new Point(0, 2));
+    @ParameterizedTest
+    @CsvSource({
+            "0, 2",
+            "3, 1",
+            "2, 2"
+    })
+    void validate_X(int x, int expectedX) {
+        Point newCoordinate = grid.sanitisePoint(new Point(x, 2));
 
-        assertThat(newCoordinate.x(), is(2));
+        assertThat(newCoordinate.x(), is(expectedX));
     }
 
-    @Test
-    void validate_X_coordinate_that_is_too_large() {
-        Point newCoordinate = grid.sanitisePoint(new Point(3, 2));
+    @ParameterizedTest
+    @CsvSource({
+            "-1, 2",
+            "3, 1",
+            "2, 2"
+    })
+    void validate_Y(int y, int expectedY) {
+        Point newCoordinate = grid.sanitisePoint(new Point(2, y));
 
-        assertThat(newCoordinate.x(), is(1));
-    }
-
-    @Test
-    public void validate_X_coordinate_that_is_valid() {
-        Point newCoordinate = grid.sanitisePoint(new Point(2, 2));
-
-        assertThat(newCoordinate.x(), is(2));
-    }
-
-    @Test
-    void validate_Y_value_that_is_too_small() {
-        Point newCoordinate = grid.sanitisePoint(new Point(2, -1));
-
-        assertThat(newCoordinate.y(), is(2));
-    }
-
-    @Test
-    void validate_Y_coordinate_that_is_too_large() {
-        Point newCoordinate = grid.sanitisePoint(new Point(2, 3));
-
-        assertThat(newCoordinate.y(), is(1));
-    }
-
-    @Test
-    public void validate_Y_coordinate_that_is_valid() {
-        Point newCoordinate = grid.sanitisePoint(new Point(2, 2));
-
-        assertThat(newCoordinate.y(), is(2));
+        assertThat(newCoordinate.y(), is(expectedY));
     }
 }
