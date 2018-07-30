@@ -15,12 +15,7 @@ public class NasaMarsRoverMissionControl {
     }
 
     public String getFinalCoordinatesAndHeadings() {
-        List<Rover> roversPostCommands = executeCommandsAndGetNewRovers();
-        HeadingConverter converter = new HeadingConverter();
-
-        return roversPostCommands.stream()
-                .map(r -> String.format("%d %d %s", r.x(), r.y(), converter.toAbbreviation(r.heading())))
-                .collect(Collectors.joining("\n"));
+        return new OutputFormatter().format(executeCommandsAndGetNewRovers());
     }
 
     private List<Rover> executeCommandsAndGetNewRovers() {
