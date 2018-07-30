@@ -15,4 +15,12 @@ public class HeadingConverter {
     public String toAbbreviation(Heading heading) {
         return this.headingAndAbbreviations.get(heading);
     }
+
+    public Heading toHeading(String abbreviation) {
+        return this.headingAndAbbreviations.entrySet()
+                .stream()
+                .filter(entry -> entry.getValue().equals(abbreviation))
+                .map(Map.Entry::getKey).findFirst()
+                .get();
+    }
 }

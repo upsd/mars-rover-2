@@ -11,7 +11,7 @@ public class NasaMarsRoverMissionControl {
     public NasaMarsRoverMissionControl(String input, InputParser parser) {
         grid = parser.parseGridFrom(input);
         rovers = parser.parseRoversFrom(input);
-        commands = parser.parseCommandsFrom(input);
+        commands = parser.parseCommandsFrom(input, grid);
     }
 
     public String getFinalCoordinatesAndHeadings() {
