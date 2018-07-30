@@ -1,6 +1,4 @@
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class NasaMarsRoverMissionControl {
 
@@ -19,17 +17,6 @@ public class NasaMarsRoverMissionControl {
     }
 
     private List<Rover> executeCommandsAndGetNewRovers() {
-        List<Rover> roversPostCommands = new ArrayList<>();
-
-        commands.stream().forEach(set -> {
-            int index = commands.indexOf(set);
-            final Rover[] rover = {rovers.get(index)};
-
-            set.stream().forEach(command -> {
-                rover[0] = command.execute(rover[0]);
-            });
-            roversPostCommands.add(rover[0]);
-        });
-        return roversPostCommands;
+        return new CommandExecutor().executeAll(commands, rovers);
     }
 }
