@@ -1,50 +1,36 @@
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.Arguments;
-import org.junit.jupiter.params.provider.MethodSource;
 
-import java.util.stream.Stream;
-
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 
 public class HeadingConverterShould {
 
-    @ParameterizedTest
-    @MethodSource("headingAndAbbreviationProvider")
-    void convert_to_abbreviation(Heading headingToConvert, String expectedAbbreviation) {
-        HeadingConverter converter = new HeadingConverter();
+    private HeadingConverter converter = new HeadingConverter();
 
-        String abbreviation = converter.toAbbreviation(headingToConvert);
+    @Test
+    void convert_to_north() {
+        Heading north = converter.toHeading("N");
 
-        assertThat(abbreviation, is(expectedAbbreviation));
+        assertTrue(north instanceof HeadingNorth);
     }
 
-    static Stream<Arguments> headingAndAbbreviationProvider() {
-        return Stream.of(
-                Arguments.of(Heading.NORTH, "N"),
-                Arguments.of(Heading.EAST, "E"),
-                Arguments.of(Heading.SOUTH, "S"),
-                Arguments.of(Heading.WEST, "W")
-        );
+    @Test
+    void convert_to_east() {
+        Heading east = converter.toHeading("E");
+
+        assertTrue(east instanceof HeadingEast);
     }
 
-    @ParameterizedTest
-    @MethodSource("abbreviationAndHeadingProvider")
-    void convert_to_heading(String abbreviationToConvert, Heading expectedHeading) {
-        HeadingConverter converter = new HeadingConverter();
+    @Test
+    void convert_to_south() {
+        Heading south = converter.toHeading("S");
 
-        Heading heading = converter.toHeading(abbreviationToConvert);
-
-        assertThat(heading, is(expectedHeading));
+        assertTrue(south instanceof HeadingSouth);
     }
 
-    static Stream<Arguments> abbreviationAndHeadingProvider() {
-        return Stream.of(
-                Arguments.of("N", Heading.NORTH),
-                Arguments.of("E", Heading.EAST),
-                Arguments.of("S", Heading.SOUTH),
-                Arguments.of("W", Heading.WEST)
-        );
+    @Test
+    void convert_to_west() {
+        Heading west = converter.toHeading("W");
+
+        assertTrue(west instanceof HeadingWest);
     }
 }

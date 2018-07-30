@@ -15,7 +15,7 @@ public class MoveCommandShould {
             "4, 5"
     })
     void move_rover_within_bounds_of_grid_when_facing_north(int startingY, int expectedY) {
-        Rover rover = new Rover(new Point(1, startingY), Heading.NORTH);
+        Rover rover = new Rover(new Point(1, startingY), new HeadingNorth());
         MoveCommand command = new MoveCommand(new Grid(new Point(5, 5)));
 
         Rover newRover = command.execute(rover);
@@ -31,7 +31,7 @@ public class MoveCommandShould {
             "4, 5"
     })
     void move_rover_within_bounds_of_grid_when_facing_east(int startingX, int expectedX) {
-        Rover rover = new Rover(new Point(startingX, 2), Heading.EAST);
+        Rover rover = new Rover(new Point(startingX, 2), new HeadingEast());
         MoveCommand command = new MoveCommand(new Grid(new Point(5, 5)));
 
         Rover newRover = command.execute(rover);
@@ -47,7 +47,7 @@ public class MoveCommandShould {
             "5, 4"
     })
     void move_rover_within_bounds_of_grid_when_facing_south(int startingY, int expectedY) {
-        Rover rover = new Rover(new Point(2, startingY), Heading.SOUTH);
+        Rover rover = new Rover(new Point(2, startingY), new HeadingSouth());
         MoveCommand command = new MoveCommand(new Grid(new Point(5, 5)));
 
         Rover newRover = command.execute(rover);
@@ -63,7 +63,7 @@ public class MoveCommandShould {
             "5, 4"
     })
     void move_rover_within_bounds_of_grid_when_facing_west(int startingX, int expectedX) {
-        Rover rover = new Rover(new Point(startingX, 2), Heading.WEST);
+        Rover rover = new Rover(new Point(startingX, 2), new HeadingWest());
         MoveCommand command = new MoveCommand(new Grid(new Point(5, 5)));
 
         Rover newRover = command.execute(rover);
@@ -73,7 +73,7 @@ public class MoveCommandShould {
 
     @Test
     void move_rover_to_min_Y_of_grid_when_moving_northwards() {
-        Rover rover = new Rover(new Point(2, 2), Heading.NORTH);
+        Rover rover = new Rover(new Point(2, 2), new HeadingNorth());
         MoveCommand command = new MoveCommand(new Grid(new Point(2, 2)));
 
         Rover newRover = command.execute(rover);
@@ -83,7 +83,7 @@ public class MoveCommandShould {
 
     @Test
     void move_rover_to_min_x_of_grid_when_moving_eastwards() {
-        Rover rover = new Rover(new Point(2, 2), Heading.EAST);
+        Rover rover = new Rover(new Point(2, 2), new HeadingEast());
         MoveCommand command = new MoveCommand(new Grid(new Point(2, 2)));
 
         Rover newRover = command.execute(rover);
@@ -93,7 +93,7 @@ public class MoveCommandShould {
 
     @Test
     void move_rover_to_max_y_of_grid_when_moving_southwards() {
-        Rover rover = new Rover(new Point(2, 1), Heading.SOUTH);
+        Rover rover = new Rover(new Point(2, 1), new HeadingSouth());
         MoveCommand command = new MoveCommand(new Grid(new Point(2, 2)));
 
         Rover newRover = command.execute(rover);
@@ -103,7 +103,7 @@ public class MoveCommandShould {
 
     @Test
     void move_rover_to_max_x_of_grid_when_moving_westwards() {
-        Rover rover = new Rover(new Point(1, 2), Heading.WEST);
+        Rover rover = new Rover(new Point(1, 2), new HeadingWest());
         MoveCommand command = new MoveCommand(new Grid(new Point(2, 2)));
 
         Rover newRover = command.execute(rover);
