@@ -1,16 +1,36 @@
 public class Grid {
 
-    private Point point;
+    private final int MAX_Y;
+    private final int MAX_X;
+    private static final int MIN_Y = 1;
+    private static final int MIN_X = 1;
 
     public Grid(Point point) {
-        this.point = point;
+        this.MAX_Y = point.y();
+        this.MAX_X = point.x();
     }
 
-    public int upperRightX() {
-        return this.point.x();
+    public int validateXCoordinate(int coordinate) {
+        if (coordinate < MIN_X) {
+            return MAX_X;
+        }
+
+        if (coordinate > MAX_X) {
+            return MIN_X;
+        }
+
+        return coordinate;
     }
 
-    public int upperRightY() {
-        return this.point.y();
+    public int validateYCoordinate(int coordinate) {
+        if (coordinate < MIN_Y) {
+            return MAX_Y;
+        }
+
+        if (coordinate > MAX_Y) {
+            return MIN_Y;
+        }
+
+        return coordinate;
     }
 }

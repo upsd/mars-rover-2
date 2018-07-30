@@ -27,26 +27,26 @@ public class NasaMarsRoverMissionControlShould {
         when(parser.parseCommandsFrom(input)).thenReturn(asList(
                 asList(
                         new LeftCommand(),
-                        new MoveCommand(),
+                        new MoveCommand(null),
                         new LeftCommand(),
-                        new MoveCommand(),
+                        new MoveCommand(null),
                         new LeftCommand(),
-                        new MoveCommand(),
+                        new MoveCommand(null),
                         new LeftCommand(),
-                        new MoveCommand(),
-                        new MoveCommand()
+                        new MoveCommand(null),
+                        new MoveCommand(null)
                 ),
                 asList(
-                        new MoveCommand(),
-                        new MoveCommand(),
+                        new MoveCommand(null),
+                        new MoveCommand(null),
                         new RightCommand(),
-                        new MoveCommand(),
-                        new MoveCommand(),
+                        new MoveCommand(null),
+                        new MoveCommand(null),
                         new RightCommand(),
-                        new MoveCommand(),
+                        new MoveCommand(null),
                         new RightCommand(),
                         new RightCommand(),
-                        new MoveCommand()
+                        new MoveCommand(null)
                 )
         ));
 
