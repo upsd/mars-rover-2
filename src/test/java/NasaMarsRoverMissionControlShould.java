@@ -14,12 +14,9 @@ public class NasaMarsRoverMissionControlShould {
     public void get_final_coordinates_and_headings() {
         InputParser parser = mock(InputParser.class);
         String input = "5 5\n1 2 N\nLMLMLMLMM\n3 3 E\nMMRMMRMRRM";
-        NasaMarsRoverMissionControl missionControl = new NasaMarsRoverMissionControl(
-                input,
-                parser
-        );
 
-        when(parser.parseGridFrom(input)).thenReturn(new Grid(new Point(5, 5)));
+        Grid grid = new Grid(new Point(5, 5));
+        when(parser.parseGridFrom(input)).thenReturn(grid);
         when(parser.parseRoversFrom(input)).thenReturn(asList(
                 new Rover(new Point(1, 2), Heading.NORTH),
                 new Rover(new Point(3, 3), Heading.EAST))
@@ -27,28 +24,33 @@ public class NasaMarsRoverMissionControlShould {
         when(parser.parseCommandsFrom(input)).thenReturn(asList(
                 asList(
                         new LeftCommand(),
-                        new MoveCommand(null),
+                        new MoveCommand(grid),
                         new LeftCommand(),
-                        new MoveCommand(null),
+                        new MoveCommand(grid),
                         new LeftCommand(),
-                        new MoveCommand(null),
+                        new MoveCommand(grid),
                         new LeftCommand(),
-                        new MoveCommand(null),
-                        new MoveCommand(null)
+                        new MoveCommand(grid),
+                        new MoveCommand(grid)
                 ),
                 asList(
-                        new MoveCommand(null),
-                        new MoveCommand(null),
+                        new MoveCommand(grid),
+                        new MoveCommand(grid),
                         new RightCommand(),
-                        new MoveCommand(null),
-                        new MoveCommand(null),
+                        new MoveCommand(grid),
+                        new MoveCommand(grid),
                         new RightCommand(),
-                        new MoveCommand(null),
+                        new MoveCommand(grid),
                         new RightCommand(),
                         new RightCommand(),
-                        new MoveCommand(null)
+                        new MoveCommand(grid)
                 )
         ));
+
+        NasaMarsRoverMissionControl missionControl = new NasaMarsRoverMissionControl(
+                input,
+                parser
+        );
 
         String output = missionControl.getFinalCoordinatesAndHeadings();
 
