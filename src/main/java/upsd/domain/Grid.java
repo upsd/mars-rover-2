@@ -19,7 +19,7 @@ public class Grid {
         return new Point(x, y);
     }
 
-    public int validateXCoordinate(int coordinate) {
+    private int validateXCoordinate(int coordinate) {
         if (coordinate < MIN_X) {
             return MAX_X;
         }
@@ -31,7 +31,7 @@ public class Grid {
         return coordinate;
     }
 
-    public int validateYCoordinate(int coordinate) {
+    private int validateYCoordinate(int coordinate) {
         if (coordinate < MIN_Y) {
             return MAX_Y;
         }
