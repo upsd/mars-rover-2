@@ -1,4 +1,8 @@
 import org.junit.Test;
+import upsd.commands.CommandExecutor;
+import upsd.domain.NasaMarsRoverMissionControl;
+import upsd.input_and_output.InputParser;
+import upsd.input_and_output.OutputFormatter;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
