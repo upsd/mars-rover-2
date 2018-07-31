@@ -70,14 +70,14 @@ public class InputParser {
             String[] commands = splittedInput[i].split("");
 
             List<Command> commandsToAdd = Arrays.stream(commands)
-                    .map(c -> getCommandFromAbbreviation(c, grid))
+                    .map(c -> getCommandFromAbbreviation(c))
                     .collect(Collectors.toList());
             commandsToReturn.add(commandsToAdd);
         }
         return commandsToReturn;
     }
 
-    private Command getCommandFromAbbreviation(String command, Grid grid) {
+    private Command getCommandFromAbbreviation(String command) {
         if (command.equals("L")) {
             return new LeftCommand();
         }
@@ -85,6 +85,6 @@ public class InputParser {
             return new RightCommand();
         }
 
-        return new MoveCommand(grid);
+        return new MoveCommand();
     }
 }

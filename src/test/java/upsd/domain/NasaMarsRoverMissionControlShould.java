@@ -42,7 +42,7 @@ public class NasaMarsRoverMissionControlShould {
                 rovers.get(0),
                 asList(
                         new LeftCommand(),
-                        new MoveCommand(grid)
+                        new MoveCommand()
                 )
         );
         ParserResult result = new ParserResult(roversAndCommands);

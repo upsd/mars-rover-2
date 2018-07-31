@@ -27,7 +27,7 @@ public class CommandExecutorShould {
                 rover,
                 asList(
                         new LeftCommand(),
-                        new MoveCommand(grid)
+                        new MoveCommand()
                 )
         );
         ParserResult result = new ParserResult(roversAndCommands);

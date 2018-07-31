@@ -15,7 +15,7 @@ public class MoveCommandShould {
         HeadingNorth heading = mock(HeadingNorth.class);
         Grid grid = mock(Grid.class);
         Rover rover = new Rover(new Point(1, 2), heading, grid);
-        MoveCommand command = new MoveCommand(grid);
+        MoveCommand command = new MoveCommand();
 
         when(heading.move(new Point(1, 2))).thenReturn(new Point(1, 4));
 
