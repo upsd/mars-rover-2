@@ -29,23 +29,25 @@ public class NasaMarsRoverMissionControlShould {
         CommandExecutor commandExecutor = mock(CommandExecutor.class);
 
         LinkedHashMap<Rover, List<Command>> roversAndCommands = new LinkedHashMap<>();
-        roversAndCommands.put(
-                new Rover(new Point(4, 3), new HeadingNorth()),
-                asList(
-                        new LeftCommand(),
-                        new MoveCommand(new Grid(new Point(10, 10)))
-                )
-        );
-        ParserResult result = new ParserResult(roversAndCommands);
+        Grid grid = new Grid(new Point(10, 10));
         List<Rover> rovers = asList(
                 new Rover(
                         new Point(4, 3),
-                        new HeadingNorth())
+                        new HeadingNorth(),
+                        grid
+                )
         );
 
+        roversAndCommands.put(
+                rovers.get(0),
+                asList(
+                        new LeftCommand(),
+                        new MoveCommand(grid)
+                )
+        );
+        ParserResult result = new ParserResult(roversAndCommands);
 
         when(parser.parse(input)).thenReturn(result);
-        when(commandExecutor.executeAll(result)).thenReturn(rovers);
         when(formatter.format(rovers)).thenReturn("Is there life on Mars?");
 
 

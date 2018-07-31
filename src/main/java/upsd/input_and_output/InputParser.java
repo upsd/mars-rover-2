@@ -21,7 +21,7 @@ public class InputParser {
     public ParserResult parse(String input) {
         Grid grid = parseGridFrom(input);
         List<List<Command>> commands = parseCommandsFrom(input, grid);
-        List<Rover> rovers = parseRoversFrom(input);
+        List<Rover> rovers = parseRoversFrom(input, grid);
 
         LinkedHashMap<Rover, List<Command>> roverAndCommands = new LinkedHashMap<>();
 
@@ -42,7 +42,7 @@ public class InputParser {
         return new Grid(new Point(x, y));
     }
 
-    private List<Rover> parseRoversFrom(String input) {
+    private List<Rover> parseRoversFrom(String input, Grid grid) {
         HeadingConverter converter = new HeadingConverter();
         String[] splittedInput = input.split("\n");
 
@@ -55,7 +55,7 @@ public class InputParser {
             int y = Integer.parseInt(startingPosition[1]);
             Heading heading = converter.toHeading(startingPosition[2]);
 
-            rovers.add(new Rover(new Point(x, y), heading));
+            rovers.add(new Rover(new Point(x, y), heading, grid));
         }
 
         return rovers;

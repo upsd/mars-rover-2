@@ -6,6 +6,7 @@ import upsd.input_and_output.OutputFormatter;
 import upsd.input_and_output.ParserResult;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class NasaMarsRoverMissionControl {
 
@@ -24,6 +25,11 @@ public class NasaMarsRoverMissionControl {
     }
 
     private List<Rover> executeCommandsAndGetNewRovers() {
-        return commandExecutor.executeAll(translationResult);
+        commandExecutor.executeAll(translationResult);
+        return this.translationResult.roverAndCommands()
+                .entrySet()
+                .stream()
+                .map(e -> e.getKey())
+                .collect(Collectors.toList());
     }
 }

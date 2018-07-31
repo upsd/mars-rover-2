@@ -13,7 +13,7 @@ public class RightCommandShould {
     @Test
     void turn_rover_right() {
         HeadingNorth heading = mock(HeadingNorth.class);
-        Rover rover = new Rover(new Point(1, 1), heading);
+        Rover rover = new Rover(new Point(1, 1), heading, null);
         RightCommand command = new RightCommand();
 
         command.execute(rover);

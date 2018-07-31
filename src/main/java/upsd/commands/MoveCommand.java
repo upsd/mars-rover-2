@@ -1,7 +1,6 @@
 package upsd.commands;
 
 import upsd.domain.Grid;
-import upsd.domain.Point;
 import upsd.domain.Rover;
 
 public class MoveCommand implements Command {
@@ -13,8 +12,8 @@ public class MoveCommand implements Command {
     }
 
     @Override
-    public Rover execute(Rover rover) {
-        Point newPoint = rover.heading().move(new Point(rover.x(), rover.y()));
-        return new Rover(this.grid.sanitisePoint(newPoint), rover.heading());
+    public void execute(Rover rover) {
+        rover.move();
+//        return new Rover(this.grid.sanitisePoint(newPoint), rover.heading());
     }
 }

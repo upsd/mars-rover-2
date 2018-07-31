@@ -13,8 +13,8 @@ public class MoveCommandShould {
     @Test
     void move_rover() {
         HeadingNorth heading = mock(HeadingNorth.class);
-        Rover rover = new Rover(new Point(1, 2), heading);
         Grid grid = mock(Grid.class);
+        Rover rover = new Rover(new Point(1, 2), heading, grid);
         MoveCommand command = new MoveCommand(grid);
 
         when(heading.move(new Point(1, 2))).thenReturn(new Point(1, 4));
