@@ -18,7 +18,22 @@ import java.util.stream.Collectors;
 
 public class InputParser {
 
-    public Grid parseGridFrom(String input) {
+    public ParserResult parse(String input) {
+        Grid grid = parseGridFrom(input);
+        List<List<Command>> commands = parseCommandsFrom(input, grid);
+        List<Rover> rovers = parseRoversFrom(input);
+
+        LinkedHashMap<Rover, List<Command>> roverAndCommands = new LinkedHashMap<>();
+
+        rovers.stream().forEach(rover -> {
+            int currentIndex = rovers.indexOf(rover);
+            roverAndCommands.put(rover, commands.get(currentIndex));
+        });
+
+        return new ParserResult(roverAndCommands);
+    }
+
+    private Grid parseGridFrom(String input) {
         String[] upperRightCoordinates = input.split("\n")[0].split(" ");
 
         int x = Integer.parseInt(upperRightCoordinates[0]);
@@ -27,7 +42,7 @@ public class InputParser {
         return new Grid(new Point(x, y));
     }
 
-    public List<Rover> parseRoversFrom(String input) {
+    private List<Rover> parseRoversFrom(String input) {
         HeadingConverter converter = new HeadingConverter();
         String[] splittedInput = input.split("\n");
 
@@ -46,7 +61,7 @@ public class InputParser {
         return rovers;
     }
 
-    public List<List<Command>> parseCommandsFrom(String input, Grid grid) {
+    private List<List<Command>> parseCommandsFrom(String input, Grid grid) {
         String[] splittedInput = input.split("\n");
 
         List<List<Command>> commandsToReturn = new ArrayList<>();
@@ -71,20 +86,5 @@ public class InputParser {
         }
 
         return new MoveCommand(grid);
-    }
-
-    public ParserResult parse(String input) {
-        Grid grid = parseGridFrom(input);
-        List<List<Command>> commands = parseCommandsFrom(input, grid);
-        List<Rover> rovers = parseRoversFrom(input);
-
-        LinkedHashMap<Rover, List<Command>> roverAndCommands = new LinkedHashMap<>();
-
-        rovers.stream().forEach(rover -> {
-            int currentIndex = rovers.indexOf(rover);
-            roverAndCommands.put(rover, commands.get(currentIndex));
-        });
-
-        return new ParserResult(roverAndCommands);
     }
 }
