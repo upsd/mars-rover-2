@@ -12,6 +12,7 @@ import upsd.headings.HeadingConverter;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -70,5 +71,20 @@ public class InputParser {
         }
 
         return new MoveCommand(grid);
+    }
+
+    public ParserResult parse(String input) {
+        Grid grid = parseGridFrom(input);
+        List<List<Command>> commands = parseCommandsFrom(input, grid);
+        List<Rover> rovers = parseRoversFrom(input);
+
+        LinkedHashMap<Rover, List<Command>> roverAndCommands = new LinkedHashMap<>();
+
+        rovers.stream().forEach(rover -> {
+            int currentIndex = rovers.indexOf(rover);
+            roverAndCommands.put(rover, commands.get(currentIndex));
+        });
+
+        return new ParserResult(roverAndCommands);
     }
 }

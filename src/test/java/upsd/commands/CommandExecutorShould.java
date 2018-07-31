@@ -4,11 +4,11 @@ import org.junit.jupiter.api.Test;
 import upsd.domain.Grid;
 import upsd.domain.Point;
 import upsd.domain.Rover;
-import upsd.headings.HeadingEast;
 import upsd.headings.HeadingNorth;
 import upsd.headings.HeadingWest;
+import upsd.input_and_output.ParserResult;
 
-import java.util.Arrays;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 import static java.util.Arrays.asList;
@@ -22,32 +22,22 @@ public class CommandExecutorShould {
     void execute_batch_of_commands() {
         CommandExecutor executor = new CommandExecutor();
 
-        List<Rover> rovers = Arrays.asList(
+        LinkedHashMap<Rover, List<Command>> roversAndCommands = new LinkedHashMap<>();
+        roversAndCommands.put(
                 new Rover(new Point(4, 3), new HeadingNorth()),
-                new Rover(new Point(5, 3), new HeadingEast())
-        );
-        Grid grid = new Grid(new Point(10, 10));
-        List<List<Command>> commands = asList(
                 asList(
                         new LeftCommand(),
-                        new MoveCommand(grid)
-                ),
-                asList(
-                        new MoveCommand(grid),
-                        new MoveCommand(grid)
+                        new MoveCommand(new Grid(new Point(10, 10)))
                 )
         );
+        ParserResult result = new ParserResult(roversAndCommands);
 
-        List<Rover> newRovers = executor.executeAll(commands, rovers);
+
+        List<Rover> newRovers = executor.executeAll(result);
 
         Rover firstRover = newRovers.get(0);
         assertTrue(firstRover.heading() instanceof HeadingWest);
         assertThat(firstRover.x(), is(3));
         assertThat(firstRover.y(), is(3));
-
-        Rover secondRover = newRovers.get(1);
-        assertTrue(secondRover.heading() instanceof HeadingEast);
-        assertThat(secondRover.x(), is(7));
-        assertThat(secondRover.y(), is(3));
     }
 }

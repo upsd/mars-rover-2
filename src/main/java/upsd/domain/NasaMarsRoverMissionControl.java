@@ -1,26 +1,22 @@
 package upsd.domain;
 
-import upsd.commands.Command;
 import upsd.commands.CommandExecutor;
 import upsd.input_and_output.InputParser;
 import upsd.input_and_output.OutputFormatter;
+import upsd.input_and_output.ParserResult;
 
 import java.util.List;
 
 public class NasaMarsRoverMissionControl {
 
-    private final Grid grid;
-    private final List<Rover> rovers;
-    private final List<List<Command>> commands;
+    private final ParserResult translationResult;
     private OutputFormatter formatter;
     private CommandExecutor commandExecutor;
 
     public NasaMarsRoverMissionControl(String input, InputParser parser, OutputFormatter outputFormatter, CommandExecutor commandExecutor) {
-        grid = parser.parseGridFrom(input);
-        rovers = parser.parseRoversFrom(input);
-        commands = parser.parseCommandsFrom(input, grid);
-        formatter = outputFormatter;
+        this.formatter = outputFormatter;
         this.commandExecutor = commandExecutor;
+        this.translationResult = parser.parse(input);
     }
 
     public String getFinalCoordinatesAndHeadings() {
@@ -28,6 +24,6 @@ public class NasaMarsRoverMissionControl {
     }
 
     private List<Rover> executeCommandsAndGetNewRovers() {
-        return commandExecutor.executeAll(commands, rovers);
+        return commandExecutor.executeAll(translationResult);
     }
 }

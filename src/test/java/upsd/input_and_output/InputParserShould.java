@@ -35,4 +35,11 @@ public class InputParserShould {
 
         assertThat(commands.size(), is(2));
     }
+
+    @Test
+    void parse_everything_from_input() {
+        ParserResult result = parser.parse("5 5\n1 2 N\nLMLMLMLMM\n3 3 E\nMMRMMRMRRM");
+
+        assertThat(result.roverAndCommands().size(), is(2));
+    }
 }
