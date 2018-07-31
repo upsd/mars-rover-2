@@ -20,23 +20,12 @@ public class InputParser {
 
     public ParserResult parse(String input) {
         Grid grid = parseGridFrom(input);
-        List<List<Command>> commands = parseCommandsFrom(input, grid);
+        List<List<Command>> commands = parseCommandsFrom(input);
         List<Rover> rovers = parseRoversFrom(input, grid);
 
         LinkedHashMap<Rover, List<Command>> roverAndCommands = combineRoversAndCommands(commands, rovers);;
 
         return new ParserResult(roverAndCommands);
-    }
-
-    private LinkedHashMap<Rover, List<Command>> combineRoversAndCommands(List<List<Command>> commands, List<Rover> rovers) {
-        LinkedHashMap<Rover, List<Command>> roverAndCommands = new LinkedHashMap<>();
-
-        rovers.stream().forEach(rover -> {
-            int currentIndex = rovers.indexOf(rover);
-            roverAndCommands.put(rover, commands.get(currentIndex));
-        });
-
-        return roverAndCommands;
     }
 
     private Grid parseGridFrom(String input) {
@@ -67,7 +56,7 @@ public class InputParser {
         return rovers;
     }
 
-    private List<List<Command>> parseCommandsFrom(String input, Grid grid) {
+    private List<List<Command>> parseCommandsFrom(String input) {
         String[] splittedInput = input.split("\n");
 
         List<List<Command>> commandsToReturn = new ArrayList<>();
@@ -92,5 +81,16 @@ public class InputParser {
         }
 
         return new MoveCommand();
+    }
+
+    private LinkedHashMap<Rover, List<Command>> combineRoversAndCommands(List<List<Command>> commands, List<Rover> rovers) {
+        LinkedHashMap<Rover, List<Command>> roverAndCommands = new LinkedHashMap<>();
+
+        rovers.stream().forEach(rover -> {
+            int currentIndex = rovers.indexOf(rover);
+            roverAndCommands.put(rover, commands.get(currentIndex));
+        });
+
+        return roverAndCommands;
     }
 }
