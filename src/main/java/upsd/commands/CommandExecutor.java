@@ -13,9 +13,11 @@ public class CommandExecutor {
                 .stream()
                 .forEach(entry -> {
                     Rover rover = entry.getKey();
-
                     List<Command> commands = entry.getValue();
-                    commands.stream().forEach(command -> command.execute(rover));
+
+                    commands
+                            .stream()
+                            .forEach(command -> command.execute(rover));
                 });
     }
 }
