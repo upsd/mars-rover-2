@@ -19,17 +19,19 @@ import java.util.stream.Collectors;
 public class InputParser {
 
     public ParserResult parse(String input) {
-        Grid grid = parseGridFrom(input);
-        List<List<Command>> commands = parseCommandsFrom(input);
-        List<Rover> rovers = parseRoversFrom(input, grid);
+        String[] dividedInput = divideInputByNewLine(input);
+
+        Grid grid = parseGridFrom(dividedInput);
+        List<List<Command>> commands = parseCommandsFrom(dividedInput);
+        List<Rover> rovers = parseRoversFrom(dividedInput, grid);
 
         LinkedHashMap<Rover, List<Command>> roverAndCommands = combineRoversAndCommands(commands, rovers);;
 
         return new ParserResult(roverAndCommands);
     }
 
-    private Grid parseGridFrom(String input) {
-        String[] upperRightCoordinates = input.split("\n")[0].split(" ");
+    private Grid parseGridFrom(String[] input) {
+        String[] upperRightCoordinates = input[0].split(" ");
 
         int x = Integer.parseInt(upperRightCoordinates[0]);
         int y = Integer.parseInt(upperRightCoordinates[1]);
@@ -37,17 +39,17 @@ public class InputParser {
         return new Grid(new Point(x, y));
     }
 
-    private List<Rover> parseRoversFrom(String input, Grid grid) {
+    private List<Rover> parseRoversFrom(String[] input, Grid grid) {
         HeadingConverter converter = new HeadingConverter();
-        String[] splittedInput = input.split("\n");
 
         List<Rover> rovers = new ArrayList<>();
 
-        for (int i = 1; i < splittedInput.length; i+=2) {
-            String[] startingPosition = splittedInput[i].split(" ");
+        int INDEX_OF_ROVERS = 1;
+        for (int i = INDEX_OF_ROVERS; i < input.length; i+=2) {
+            String[] startingPosition = input[i].split(" ");
 
             int x = Integer.parseInt(startingPosition[0]);
-            int y = Integer.parseInt(startingPosition[1]);
+            int y = Integer.parseInt(startingPosition[INDEX_OF_ROVERS]);
             Heading heading = converter.toHeading(startingPosition[2]);
 
             rovers.add(new Rover(new Point(x, y), heading, grid));
@@ -56,13 +58,12 @@ public class InputParser {
         return rovers;
     }
 
-    private List<List<Command>> parseCommandsFrom(String input) {
-        String[] splittedInput = input.split("\n");
-
+    private List<List<Command>> parseCommandsFrom(String[] input) {
         List<List<Command>> commandsToReturn = new ArrayList<>();
 
-        for (int i = 2; i < splittedInput.length; i+=2) {
-            String[] commands = splittedInput[i].split("");
+        int INDEX_OF_COMMANDS = 2;
+        for (int i = INDEX_OF_COMMANDS; i < input.length; i+= INDEX_OF_COMMANDS) {
+            String[] commands = input[i].split("");
 
             List<Command> commandsToAdd = Arrays.stream(commands)
                     .map(c -> getCommandFromAbbreviation(c))
@@ -92,5 +93,9 @@ public class InputParser {
         });
 
         return roverAndCommands;
+    }
+
+    private String[] divideInputByNewLine(String input) {
+        return input.split("\n");
     }
 }
