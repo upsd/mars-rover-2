@@ -18,7 +18,8 @@ public class HeadingConverter {
         return this.headingAndAbbreviations.entrySet()
                 .stream()
                 .filter(entry -> entry.getValue().equals(abbreviation))
-                .map(Map.Entry::getKey).findFirst()
+                .map(Map.Entry::getKey)
+                .findFirst()
                 .get();
     }
 }
