@@ -13,33 +13,21 @@ public class Grid {
     }
 
     public Point sanitisePoint(Point pointToValidate) {
-        int x = validateXCoordinate(pointToValidate.x());
-        int y = validateYCoordinate(pointToValidate.y());
+        int x = validateCoordinate(MIN_X, MAX_X, pointToValidate.x());
+        int y = validateCoordinate(MIN_Y, MAX_Y, pointToValidate.y());
 
         return new Point(x, y);
     }
 
-    private int validateXCoordinate(int coordinate) {
-        if (coordinate < MIN_X) {
-            return MAX_X;
+    private int validateCoordinate(int minCoordinate, int maxCoordinate, int coordinateToValidate) {
+        if (coordinateToValidate < minCoordinate) {
+            return maxCoordinate;
         }
 
-        if (coordinate > MAX_X) {
-            return MIN_X;
+        if (coordinateToValidate > maxCoordinate) {
+            return minCoordinate;
         }
 
-        return coordinate;
-    }
-
-    private int validateYCoordinate(int coordinate) {
-        if (coordinate < MIN_Y) {
-            return MAX_Y;
-        }
-
-        if (coordinate > MAX_Y) {
-            return MIN_Y;
-        }
-
-        return coordinate;
+        return coordinateToValidate;
     }
 }
