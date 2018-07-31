@@ -45,7 +45,8 @@ public class InputParser {
         List<Rover> rovers = new ArrayList<>();
 
         int INDEX_OF_ROVERS = 1;
-        for (int i = INDEX_OF_ROVERS; i < input.length; i+=2) {
+        int NUMBER_OF_PARTS_TO_SKIP = 2;
+        for (int i = INDEX_OF_ROVERS; i < input.length; i += NUMBER_OF_PARTS_TO_SKIP) {
             String[] startingPosition = input[i].split(" ");
 
             int x = Integer.parseInt(startingPosition[0]);
@@ -62,7 +63,8 @@ public class InputParser {
         List<List<Command>> commandsToReturn = new ArrayList<>();
 
         int INDEX_OF_COMMANDS = 2;
-        for (int i = INDEX_OF_COMMANDS; i < input.length; i+= INDEX_OF_COMMANDS) {
+        int NUMBER_OF_PARTS_TO_SKIP = 2;
+        for (int i = INDEX_OF_COMMANDS; i < input.length; i += NUMBER_OF_PARTS_TO_SKIP) {
             String[] commands = input[i].split("");
 
             List<Command> commandsToAdd = Arrays.stream(commands)
